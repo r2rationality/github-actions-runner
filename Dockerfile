@@ -26,6 +26,6 @@ RUN mkdir actions-runner
 WORKDIR /home/dev/actions-runner
 RUN curl -o actions-runner-linux-x64-2.308.0.tar.gz -L https://github.com/actions/runner/releases/download/v2.308.0/actions-runner-linux-x64-2.308.0.tar.gz
 RUN tar xzf ./actions-runner-linux-x64-2.308.0.tar.gz
-RUN --mount=type=secret,id=token,uid=1001,gid=1001 TOKEN=$(cat /run/secrets/token) && ./config.sh --url $REPO --token $TOKEN --name "dockerized-runner"
+RUN --mount=type=secret,id=token,uid=1001,gid=1001 echo "Uncached step" $(date) &&  TOKEN=$(cat /run/secrets/token) && ./config.sh --url $REPO --token $TOKEN --name "dockerized-runner"
 COPY start.sh /home/dev/
 CMD [ "/bin/bash", "/home/dev/start.sh" ]
