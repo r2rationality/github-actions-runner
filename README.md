@@ -6,7 +6,14 @@
    docker build -t ga-runner --secret id=token,src=.token --build-arg REPO=https://github.com/r2rationality/turbojam .
    ```
 
+Notes:
+- After the .token file is changed you may need to add --no-cache to the build instruction above.
+
+
 ### Start the runner
 ```bash
-docker run --rm -it --cpus=2 --memory=2gb ga-runner
+docker run -v //var/run/docker.sock:/var/run/docker.sock -it --cpus=2 --memory=2gb ga-runner
 ```
+
+Notes:
+- running the container without --rm flag insures that the runner's data is kept between restarts
